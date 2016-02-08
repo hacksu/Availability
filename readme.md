@@ -80,3 +80,18 @@ is just to do
     * Replace `alart` with `console.log`
     * We get `Object {message: "Hello World!"}` much more useful. It got parsed into a JavaScript object because jQuery is useful
 * We can print out just the message by doing `data.message` so `alert(data.message)`
+
+## Serve the right JSON
+
+Let's actually serve JSON which can be used to display the information we want
+
+* Lets add a new route "availability" like
+
+        @app.route("/availability")
+        def get_availability():
+            return jsonify({})
+            
+* The format we want to use for the finished version will be very simple
+    * Just a dictionary of names and availabilities
+    * So for now lets return something like `{"isaac": "free", "timothy": "kind of busy"}
+* Change the index.html file to fetch  `http://127.0.0.1:5000/availability` then just print out the result.
