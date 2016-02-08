@@ -33,3 +33,39 @@ Lets make it say hi to us like every good program should.
 * This works, but it isn't right. One we may need to load this file as a module, so we can use a more fully fledged web server
 than the built in one. To do this we'll need to check if we're the main file when we're about to run the web server
 * Add `if __name__ == "__main__":` in front of the `app.run()`
+
+
+### Read the info in jQuery
+
+Let's change tacks and load the route we just created using jQuery.
+
+* Create a html file. I'll be calling it `index.html`
+* Add the minimal stuff to make it a valid page
+        
+        <html>
+        <head>
+            
+        </head>
+        <body>
+        
+        </body>
+        </html>
+* Then we need to include jQuery. We'll make this bit interactive.
+    * Search for `jquery cdn`
+    * find the link to the library
+    * Include it by adding a `<script src="`your url`"></script>` where your url is the url we found earlier
+* Add a script tag again in the head
+* Let's make a GET request to fetch that page we created. We can do this a number of different ways but the easiest
+is just to do 
+    
+        $.get("http://127.0.0.1:5000/", "", function (data) {
+            alert(data)
+        })
+
+* Load that page... You should see nothing. 
+    * If you open up the console you'll see `XMLHttpRequest cannot load http://127.0.0.1:5000/. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:6209' is therefore not allowed access.`
+    * This is a very common error. We'll getting it because we didn't tell chrome it was OK to let Javascript load our resource.
+* There's an easy solution. Install flask-cors with `pip install flask-cors`
+* Add `from flask.ext.cors import CORS` to import the library
+* Add `CORS(app)` to apply it
+* Reload and you should get an alert that says "Hello World!"
