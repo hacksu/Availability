@@ -69,3 +69,14 @@ is just to do
 * Add `from flask.ext.cors import CORS` to import the library
 * Add `CORS(app)` to apply it
 * Reload and you should get an alert that says "Hello World!"
+
+## Serve JSON
+
+* Right now we'll just returning html which isn't the most useful thing for scripts, instead lets return JSON.
+* Add `, jsonify` after the Flask import
+* Now we can call jsonify to turn a python dictionary into a json responce for any of our routes
+* As an example replace "Hello Wold!" with jsonify({"message": "Hello World!"})
+* Now when we reload the website we get... `[object Object]` not exactly what we wanted. Lets print it out instead
+    * Replace `alart` with `console.log`
+    * We get `Object {message: "Hello World!"}` much more useful. It got parsed into a JavaScript object because jQuery is useful
+* We can print out just the message by doing `data.message` so `alert(data.message)`
