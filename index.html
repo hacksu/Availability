@@ -3,18 +3,46 @@
     <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
 
     <script>
+        console.log("loaded");
         $.get("http://127.0.0.1:5000/availability", "", function (data) {
-
+            console.log("response");
             $(function () {
                 var availabilities = $("#availabilities");
                 for (var user in data) {
                     availabilities.append("<li>" + user + ": " + data[user] + "</li>")
                 }
             })
-        })
+        });
+
+        function submit_availability() {
+            var name = $("#name").val();
+            var availability = $("#availability").val();
+            var data = {};
+            data[name] = availability;
+            jQuery.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:5000/availability",
+                data: JSON.stringify(data),
+                success: function (data) {
+                    console.log(data);
+                },
+                contentType: "application/json"
+            });
+
+        }
     </script>
 </head>
 <body>
+<input type="text" id="name"/>
+
+<select id="availability">
+  <option value="Free">Free</option>
+  <option value="Busy">Busy</option>
+  <option value="Putting out a fire">Putting out a fire</option>
+  <option value="Running really fast">Running really fast</option>
+</select>
+<button onclick="submit_availability()">Submit</button>
+
 <div id="availabilities"></div>
 </body>
 </html>

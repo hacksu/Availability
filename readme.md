@@ -130,3 +130,37 @@ Lets display all this cool info we have to the user
             availabilities.append("<li>" + user + ": " + data[user] + "</li>")
         }
 * Reload the page and... you see nothing because we don't have any data yet. We can add some with postman, or you can just use my data
+
+## Set Status
+
+Lets let users actually set if they are free or not
+
+* Add the menu, your options can be different, but my backend will strip any inputs but those listed
+
+        <input type="text" id="name"/>
+        
+        <select id="availability">
+          <option value="Free">Free</option>
+          <option value="Busy">Busy</option>
+          <option value="Putting out a fire">Putting out a fire</option>
+          <option value="Running really fast">Running really fast</option>
+        </select>
+        <button onclick="submit_availability()">Submit</button>
+* Add the function
+
+        function submit_availability() {
+            var name = $("#name").val();
+            var availability = $("#availability").val();
+            var data = {};
+            data[name] = availability;
+            jQuery.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:5000/availability",
+                data: JSON.stringify(data),
+                success: function (data) {
+                    console.log(data);
+                },
+                contentType: "application/json"
+            });
+
+        }
