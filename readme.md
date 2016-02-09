@@ -108,4 +108,25 @@ Let's actually record if people are available.
 * Inside our new function, make sure python knows we want to use it with  `global availability`
 * Now we just need to merge the data we just got with our existing data on availability. This does that perfectly `availability.update(request.get_json())`
 * We have to return something so let's return the current availability dictionary `return jsonify(availability)`
-* And lets do the same thing when we're getting availability
+* And let's do the same thing when we're getting availability
+
+## Show status
+
+Lets display all this cool info we have to the user
+
+* So what we need to do is dynamically edit the web page. The good news is we can do just that.
+* First step is to add a div to mark the spot we'll be putting this info. Something like `<div id="availabilities"></div>`
+* Make sure it give it an id so we can find it later
+* Now in when we get our data back from the backend, we need to make sure the website has been totally loaded so we can edit it
+* We pass a function to jQuery and it will take care of it like this:
+
+        $(function () {
+        });
+
+* The first thing we need to do is find that div we created. Like this `var availabilities = $("#availabilities");`
+* Now we can just loop through every user and add a list item for them like so
+
+        for (var user in data) {
+            availabilities.append("<li>" + user + ": " + data[user] + "</li>")
+        }
+* Reload the page and... you see nothing because we don't have any data yet. We can add some with postman, or you can just use my data

@@ -4,11 +4,17 @@
 
     <script>
         $.get("http://127.0.0.1:5000/availability", "", function (data) {
-            console.log(data)
+
+            $(function () {
+                var availabilities = $("#availabilities");
+                for (var user in data) {
+                    availabilities.append("<li>" + user + ": " + data[user] + "</li>")
+                }
+            })
         })
     </script>
 </head>
 <body>
-
+<div id="availabilities"></div>
 </body>
 </html>
