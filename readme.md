@@ -95,3 +95,17 @@ Let's actually serve JSON which can be used to display the information we want
     * Just a dictionary of names and availabilities
     * So for now lets return something like `{"isaac": "free", "timothy": "kind of busy"}
 * Change the index.html file to fetch  `http://127.0.0.1:5000/availability` then just print out the result.
+
+## Record status
+
+Let's actually record if people are available.
+
+* To do that we need another route, but this one will be special. All the others have just defaulted to be GET, this one needs to be PUT
+* So we specify the method like this: @app.route("/availability", methods=["POST"])
+* Then we need to add a method to go with it.
+* Import `request` from flask, this is a variable which holds details about the current request being made.
+* Now we are going to define a global dictionary to hold our data. THIS IS A BAD IDEA, but we'll hackers so lets do it. `availability = {}`
+* Inside our new function, make sure python knows we want to use it with  `global availability`
+* Now we just need to merge the data we just got with our existing data on availability. This does that perfectly `availability.update(request.get_json())`
+* We have to return something so let's return the current availability dictionary `return jsonify(availability)`
+* And lets do the same thing when we're getting availability
